@@ -32,4 +32,4 @@
 		<property name="username" value="#{db['jdbc.username']}" />
 		<property name="password" value="#{db['jdbc.password']}" />
 	</bean>
-</beans>
+ </beans>
