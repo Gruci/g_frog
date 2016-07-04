@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.frog.dao.UserDAO">
+  <resultMap type="UserVO" id="userResultMap">
+    <id column="no" property="no"/>
+    <result column="user_name" property="userName"/>
+    <result column="user_email" property="userEmail"/>
+    <result column="password" property="password"/>
+    <result column="sex" property="sex"/>
+    <result column="birth_date" property="birthDate" javaType="java.sql.Date"/>
+    <result column="created_date" property="createdDate" javaType="java.sql.Date"/>
+    <result column="last_date" property="lastDate" javaType="java.sql.Date"/>
+    <result column="image_path" property="imagePath"/>
+  </resultMap>
+</mapper>
