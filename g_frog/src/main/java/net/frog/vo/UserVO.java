@@ -23,6 +23,15 @@ public class UserVO {
 	protected Date lastDate;
 	protected String imagePath;
 	
+	public UserVO(String username,String useremail, String password,Boolean sex,Date birthdate,String imagePath){
+		this.userName = username;
+		this.userEmail = useremail;
+		this.password = password;
+		this.sex = sex;
+		this.birthDate = birthdate;
+		this.imagePath = imagePath;
+	}
+	
 	public int getNo() {
 		return no;
 	}
