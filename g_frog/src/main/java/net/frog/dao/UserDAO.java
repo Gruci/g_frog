@@ -23,7 +23,7 @@ public class UserDAO {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		RowBounds rowBounds = new RowBounds(start,end);
 		try{
-			return sqlSession.selectList("net.frog.dao.UserDAO.selectList", rowBounds);
+			return sqlSession.selectList("net.frog.dao.UserDao.selectList", rowBounds);
 		}finally{
 			sqlSession.close();
 		}
@@ -32,7 +32,7 @@ public class UserDAO {
 	public int count() {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{
-			return sqlSession.selectOne("net.frog.dao.UserDAO.count");
+			return sqlSession.selectOne("net.frog.dao.UserDao.count");
 		}finally{
 			sqlSession.close();
 		}
@@ -42,7 +42,7 @@ public class UserDAO {
 	public int insert(UserVO userVO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{
-			return sqlSession.insert("net.frog.dao.UserDAO.insert", userVO);
+			return sqlSession.insert("net.frog.dao.UserDao.insert", userVO);
 		}finally{
 			sqlSession.close();
 		}
@@ -51,7 +51,7 @@ public class UserDAO {
 	public int update(UserVO userVO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{
-			return sqlSession.update("net.frog.dao.UserDAO.update", userVO);
+			return sqlSession.update("net.frog.dao.UserDao.update", userVO);
 		}finally{
 			sqlSession.close();
 		}
@@ -60,7 +60,7 @@ public class UserDAO {
 	public int delete() {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{
-			return sqlSession.delete("net.frog.dao.UserDAO.delete");
+			return sqlSession.delete("net.frog.dao.UserDao.delete");
 		}finally{
 			sqlSession.close();
 		}

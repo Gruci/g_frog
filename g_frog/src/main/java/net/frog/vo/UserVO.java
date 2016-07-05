@@ -23,6 +23,16 @@ public class UserVO {
 	protected Date lastDate;
 	protected String imagePath;
 	
+	public UserVO(){
+		
+	}
+	
+	public UserVO(String username,String useremail, String password){
+		this.userName = username;
+		this.userEmail = useremail;
+		this.password = password;
+	}
+	
 	public UserVO(String username,String useremail, String password,Boolean sex,Date birthdate,String imagePath){
 		this.userName = username;
 		this.userEmail = useremail;
@@ -41,14 +51,14 @@ public class UserVO {
 	public String getUserName() {
 		return userName;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.userName = username;
 	}
 	public String getUserEmail() {
 		return userEmail;
 	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUserEmail(String useremail) {
+		this.userEmail = useremail;
 	}
 	public String getPassword() {
 		return password;
@@ -65,19 +75,19 @@ public class UserVO {
 	public Date getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(Date birthdate) {
+		this.birthDate = birthdate;
 	}
 	public Date getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedDate(Date createddate) {
+		this.createdDate = createddate;
 	}
 	public Date getlastDate() {
 		return lastDate;
 	}
-	public void setlastDate(Date lastDate) {
-		this.lastDate = lastDate;
+	public void setlastDate(Date lastdate) {
+		this.lastDate = lastdate;
 	}
 }

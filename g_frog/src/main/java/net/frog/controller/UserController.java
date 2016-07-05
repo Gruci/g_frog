@@ -8,10 +8,12 @@ import net.frog.vo.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -45,9 +47,20 @@ public class UserController {
 		return "/userAdd";
 	}
 	@RequestMapping(value="/user/userAdd.do", method=RequestMethod.POST)
-	public String userAdd(UserVO userVO) throws Exception{
-		userService.insert(userVO);
+	public String userAdd(HttpServletRequest request,
+			@RequestParam(value = "userName",required = true)String userName,
+			@RequestParam(value = "userEmail",required = true)String userEmail,
+			@RequestParam(value = "password",required = true)String password
+	) throws Exception{
+		 ModelAndView modelandview = new ModelAndView("/userList");
+
+		UserVO userVO = new UserVO();
+		userVO.setUserName(userName);
+		userVO.setUserEmail(userEmail);
+		userVO.setPassword(password);
 		
+		userService.insert(userVO);
+			
 		return "redirect:/user/userList.do";
 	}
 	
