@@ -37,11 +37,18 @@
 	</insert>
   
 	<update id="update" parameterType="UserVO">
-  		update b_users set password=#{password},last_date=now() 
+  		update b_users set password=#{password},last_date=now() ,user_name=#{userName}
   		where user_email=#{userEmail}
   	</update>
   
   	<delete id="delete">
-  		delete from b_users where user_email=#{userEmail}
+  		delete from b_users where user_email=#{userEmail} and  password=#{password}
   	</delete>
+  	
+  	<select id="login" resultType="int">
+  	select  count(*) from b_users where  user_email=#{userEmail} and  password=#{password}
+  	</select>
+  	
+  	
+  		
 </mapper>

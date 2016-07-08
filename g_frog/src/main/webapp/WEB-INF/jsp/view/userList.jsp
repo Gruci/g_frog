@@ -27,6 +27,7 @@
 			<td>${list.userEmail }</td>
 			<td>${list.createdDate }</td>
 			<td>${list.lastDate }</td>
+			
 		</tr>
 	</c:forEach>
 		</tbody>
@@ -56,6 +57,9 @@
 		</tfoot>
 	</table>
 	<div><p><a href="<%=request.getContextPath()%>/user/userAdd.do" class="btn btn-success">Sign Up</a></p></div>
-	
+	<div><p><a href="<%=request.getContextPath()%>/user/userLogin.do" class="btn btn-success">Sign In</a></p></div>
+	<div><p><a href="<%=request.getContextPath()%>/user/userDelete.do" class="btn btn-success">Delete user</a></p></div>
+	<div><p><a href="<%=request.getContextPath()%>/user/userEdit.do" class="btn btn-success">Edit </a></p></div>
+
 </body>
 </html>

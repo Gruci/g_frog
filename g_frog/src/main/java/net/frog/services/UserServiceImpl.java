@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import net.frog.dao.UserDAO;
+import net.frog.vo.TestVO;
 import net.frog.vo.UserVO;
 
 @Service("userService")
@@ -35,9 +36,27 @@ public class UserServiceImpl implements UserService {
 		return userDAO.update(userVO);
 	}
 
-	@Override
+	/*@Override
 	public int delete() throws Exception {
 		return userDAO.delete();
+	}*/
+/*
+	@Override
+	public UserVO login(UserVO userVO) {
+		//return userDAO.selectList(start,end);
+		return userDAO.login(userVO);
+	}
+*/
+
+	@Override
+	public int delete(UserVO userVO) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.delete(userVO);
+	}
+
+	@Override
+	public int login(UserVO userVO) throws Exception{
+		return userDAO.login(userVO);
 	}
 
 }
