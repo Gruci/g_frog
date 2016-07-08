@@ -58,7 +58,24 @@ public class PostDAO {
 	public int delete(PostVO postVO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{
-			return sqlSession.insert("net.frog.dao.PostDao.delete", postVO);
+			return sqlSession.delete("net.frog.dao.PostDao.delete", postVO);
+		}finally{
+			sqlSession.close();
+		}
+	}
+	
+	public PostVO selectOne(int board_no){
+		SqlSession sqlSession = sqlSessionFactory.openSession();		
+		try{
+			return sqlSession.selectOne("net.frog.dao.PostDao.selectOne",board_no);
+		}finally{
+			sqlSession.close();
+		}
+	}
+	public int update(PostVO postVO) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();		
+		try{
+			return sqlSession.update("net.frog.dao.PostDao.update", postVO);
 		}finally{
 			sqlSession.close();
 		}

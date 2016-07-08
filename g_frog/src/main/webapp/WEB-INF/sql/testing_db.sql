@@ -30,3 +30,15 @@ INSERT INTO user_roles (username, role)
 VALUES ('mkyong', 'ROLE_ADMIN');
 INSERT INTO user_roles (username, role)
 VALUES ('alex', 'ROLE_USER');
+
+create table test_board(
+   board_no int not null auto_increment comment '글번호',
+    title varchar(45) not null comment '제목',
+    contents text comment '내용',
+    user_id varchar(45) comment '작성자',
+    register_date date comment '등록일자',
+    modify_date date comment '수정일자',
+    visible int comment '글 보이기 여부',
+    primary key(board_no)
+    )
+    comment '테스트 게시판';

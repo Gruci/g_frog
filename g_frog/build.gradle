@@ -9,7 +9,6 @@ sourceCompatibility = 1.7
 version = '1.0'
 
 eclipse{
-	project.natures "org.springsource.ide.eclipse.gradle.core.nature"
 	wtp{
 		facet{
 			facet name: 'jst.web', version: '3.0'

@@ -14,4 +14,8 @@ public interface PostService {
 	public int insert(PostVO postVO) throws Exception;
 	
 	public int delete(PostVO postVO)throws Exception;
+	
+	public int update(PostVO postVO)throws Exception;
+
+	public PostVO selectOne(int parseInt);
 }

@@ -20,6 +20,11 @@
 	<select id="selectPost" parameterType="String" resultMap="postResultMap">
 		select * from test_board where board_no=#{value}
 	</select>
+	
+	<select id="selectOne" parameterType="int" resultMap="postResultMap">
+		select * from test_board where board_no=#{value}
+	</select>
+	
 	<select id="count" resultType="int">
 		select count(*) from test_board
 	</select>
@@ -28,9 +33,17 @@
 		insert into test_board(title,contents,user_id,register_date,modify_date,visible)
 		values (#{title},#{contents},#{userid},now(),now(),1)
 	</insert>
+	
+	<insert id="update" parameterType="PostVO">
+		update test_board 
+		set title=#{title},
+		contents=#{contents},
+		modify_date=now()
+		where board_no=#{index}
+	</insert>
   
   	<delete id="delete">
-  		delete from test_board where index=#{index}
+  		delete from test_board where board_no=#{index}
   	</delete>
   	
   	

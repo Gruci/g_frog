@@ -94,7 +94,7 @@ public class UserController {
 			@RequestParam(value = "userEmail",required = true)String userEmail,
 			@RequestParam(value = "password",required = true)String password) throws Exception{	
 		UserVO userVO = new UserVO();
-		userVO.setUserName(userName);
+		userVO.setUserName(userName);  
 		userVO.setUserEmail(userEmail);
 		userVO.setPassword(password);
 		userService.update(userVO);

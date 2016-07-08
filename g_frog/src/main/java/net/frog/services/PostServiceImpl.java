@@ -39,4 +39,15 @@ public class PostServiceImpl implements PostService {
 		// TODO Auto-generated method stub
 		return postDAO.delete(postVO);
 	}
+	
+	@Override
+	public int update(PostVO postVO) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.update(postVO);
+	}
+
+	@Override
+	public PostVO selectOne(int parseInt) {
+		return postDAO.selectOne(parseInt);
+	}
 }
