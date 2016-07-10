@@ -4,14 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>add</title>
+<title>edit</title>
 </head>
 <body>
-	<form action="" method="post" enctype="multipart/form-data" >
-		<input type="text" class="form-control" name="title" maxlength="10" required="required" placeholder="Write Email " autocomplete="off">
-		<input type="text" class="form-control" name="contents" maxlength="15" required="required" placeholder="Write Password" autocomplete="off">
+	<form action="" method="post" >
+		<input type="hidden" class="form-control" name="board_no" value=${title }>
+		<input type="text" class="form-control" name="title" maxlength="10" required="required" value=${title } autocomplete="off">
+		<input type="text" class="form-control" name="contents" maxlength="15" required="required" value= ${content } autocomplete="off">
 		<input type="hidden"    name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-		<input type="file" name="file">
+		
 		<button type="submit" class="btn btn-primary" value="submit">Submit</button>
 	</form>
 </body>

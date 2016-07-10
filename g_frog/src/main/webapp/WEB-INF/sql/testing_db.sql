@@ -42,3 +42,30 @@ create table test_board(
     primary key(board_no)
     )
     comment '테스트 게시판';
+ 
+    
+//ㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃㅃ    
+
+create table test_comment (
+   comment_no int not null auto_increment ,
+    board_no int not null ,
+    user_id varchar(45) ,
+    comment_content text,
+    register_date date,
+   visible int comment ,
+    primary key(comment_no),
+    foreign key(board_no)  references test_board(board_no)
+    )comment ;
+    
+CREATE TABLE TB_FILE
+(
+  IDX   NUMBER,
+  BOARD_IDX NUMBER NOT NULL,
+  ORIGINAL_FILE_NAME VARCHAR2(260 BYTE) NOT NULL,
+  STORED_FILE_NAME VARCHAR2(36 BYTE) NOT NULL,
+  FILE_SIZE NUMBER,
+  CREA_DTM  DATE DEFAULT SYSDATE NOT NULL,
+  CREA_ID   VARCHAR2(30 BYTE) NOT NULL,
+  DEL_GB    VARCHAR2(1 BYTE) DEFAULT 'N' NOT NULL,
+  PRIMARY KEY (IDX)
+);

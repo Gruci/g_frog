@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="net.frog.dao.ContentDao">
+	<resultMap type="ContentVO" id="contentResultMap">
+    	<id column="comment_no" property="comment_no"/>
+		<result column="board_no" property="board_no"/>
+		<result column="comment_content" property="comment_content"/>
+		<result column="user_id" property="user_id"/>
+		<result column="register_date" property="register_date" javaType="java.sql.Date"/>
+		<result column="visible" property="visible"/>
+	</resultMap>
+ 
+ 	<select id="selectList" parameterType="int"  resultType="ContentVO"  resultMap="contentResultMap">
+		select * from test_comment where board_no = #{value}
+	</select>
+
+  		
+  	<insert id="insert" parameterType="ContentVO">
+		insert into test_comment(board_no,comment_content,user_id,register_date,visible)
+		values (#{board_no},#{comment_content},#{user_id},now(),1)
+	</insert>	
+  		
+  		<select id="selectOne"  resultType="ContentVO"  parameterType="int" resultMap="contentResultMap">
+		select * from test_comment where comment_no=#{value}
+	</select>
+	  
+  	<delete id="delete" parameterType="int">
+  		delete from test_comment where comment_no=#{comment_no}
+  	</delete>
+	
+		<insert id="update" parameterType="ContentVO">
+  	 update test_comment set comment_content=#{comment_content} where comment_no=#{comment_no}
+  	 </insert>
+	
+</mapper>
