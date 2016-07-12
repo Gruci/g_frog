@@ -39,7 +39,7 @@ public class UserController {
 	
 	@RequestMapping(value="/user/userList.do")
 	public ModelAndView userList(HttpServletRequest request) throws Exception{
-		ModelAndView modelandview = new ModelAndView();
+		ModelAndView modelAndView  = new ModelAndView();
 		int start = 1;
 		int end = 5;
 		if(request.getParameter("page")!= null){
@@ -48,14 +48,14 @@ public class UserController {
 		}
 		
 		List<UserVO> lists = userService.selectList((start-1)*end,end);
-		modelandview.addObject("lists", lists);
+		modelAndView.addObject("lists", lists);
 		int total = userService.count();
 		int pages = (int)Math.ceil(total*(1.0)/end);
-		modelandview.addObject("pages",pages);
-		modelandview.addObject("page",start);
-		modelandview.setViewName("/userList");
+		modelAndView.addObject("pages",pages);
+		modelAndView.addObject("page",start);
+		modelAndView.setViewName("/userList");
 		
-		return modelandview;
+		return modelAndView;
 	}
 	
 	@RequestMapping("/user/userAdd.do")
@@ -69,15 +69,11 @@ public class UserController {
 			@RequestParam(value = "userEmail",required = true)String userEmail,
 			@RequestParam(value = "password",required = true)String password
 	) throws Exception{
-		 ModelAndView modelandview = new ModelAndView("/userList");
-
 		UserVO userVO = new UserVO();
 		userVO.setUserName(userName);
 		userVO.setUserEmail(userEmail);
-		userVO.setPassword(password);
-		
+		userVO.setPassword(password);	
 		userService.insert(userVO);
-			
 		return "redirect:/user/userList.do";
 	}
 	
@@ -163,7 +159,7 @@ public class UserController {
 	
 	@RequestMapping("/board/boardList.do")
 	public ModelAndView boardList(HttpServletRequest request) throws Exception{
-		ModelAndView modelandview = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView();
 		int start = 1;
 		int end = 5;
 		if(request.getParameter("page")!= null){
@@ -172,14 +168,14 @@ public class UserController {
 		}
 		
 		List<UserVO> lists = userService.selectList((start-1)*end,end);
-		modelandview.addObject("lists", lists);
+		modelAndView.addObject("lists", lists);
 		int total = userService.count();
 		int pages = (int)Math.ceil(total*(1.0)/end);
-		modelandview.addObject("pages",pages);
-		modelandview.addObject("page",start);
-		modelandview.setViewName("/userList");
+		modelAndView.addObject("pages",pages);
+		modelAndView.addObject("page",start);
+		modelAndView.setViewName("/userList");
 		
-		return modelandview;
+		return modelAndView;
 	}
 	
 	
@@ -193,8 +189,6 @@ public class UserController {
 			@RequestParam(value = "userEmail",required = true)String userEmail,
 			@RequestParam(value = "password",required = true)String password
 	) throws Exception{
-		 ModelAndView modelandview = new ModelAndView("/userList");
-
 		UserVO userVO = new UserVO();
 		userVO.setUserName(userName);
 		userVO.setUserEmail(userEmail);
@@ -208,17 +202,18 @@ public class UserController {
 	
 	
 	
-	
+	/*
+	 * 권한 실험 
 	@RequestMapping(value="/test.do", method = RequestMethod.GET)
-	public String test(ModelMap model){
+	public String test(ModelMap modelMap){
 		 User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	      String name = user.getUsername();
-	      model.addAttribute("username", name);//아이디
-	      model.addAttribute("password",user.getPassword());//암호 이것은 막는다.
-	      model.addAttribute("ROLE",user.getAuthorities());//권한
+	      modelMap.addAttribute("username", name);//아이디
+	      modelMap.addAttribute("password",user.getPassword());//암호 
+	      modelMap.addAttribute("ROLE",user.getAuthorities());//권한
 
 		return "test";
-	}
+	}*/
 	
 	
 
@@ -227,7 +222,7 @@ public class UserController {
 	public ModelAndView defaultPage(HttpServletRequest request) throws Exception {
 
 	
-	  ModelAndView model = new ModelAndView();
+	  ModelAndView modelAndView = new ModelAndView();
 	/*  int start = 1;
 	  int end = 5;
 	  if(request.getParameter("page")!=null){
@@ -242,42 +237,46 @@ public class UserController {
 		model.addObject("pages",pages);
 		model.addObject("page",start);
 	*/
-		model.setViewName("/hello");
+	  modelAndView .setViewName("/hello");
 	
-		return model;
+		return modelAndView ;
 
 	}
 	
 	
-
+	/*
+	 * admin 계정
+	 */
 	@RequestMapping(value = "/admin.do**", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
-
-	  ModelAndView model = new ModelAndView();
-	  model.addObject("title", "Spring Security Login Form - Database Authentication");
-	  model.addObject("message", "This page is for ROLE_ADMIN only!");
-	  model.setViewName("admin");
-	  return model;
+	  ModelAndView modelAndView = new ModelAndView();
+	  modelAndView.addObject("title", "Spring Security Login Form - Database Authentication");
+	  modelAndView.addObject("message", "This page is for ROLE_ADMIN only!");
+	  modelAndView.setViewName("admin");
+	  return modelAndView;
 
 	}
-
+	/*
+	 * login
+	 */
+	/*
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
 		@RequestParam(value = "logout", required = false) String logout) {
 
-	  ModelAndView model = new ModelAndView();
+	  ModelAndView modelAndView = new ModelAndView();
 	  if (error != null) {
-		model.addObject("error", "Invalid username and password!");
+		  modelAndView.addObject("error", "Invalid username and password!");
 	  }
 
 	  if (logout != null) {
-		model.addObject("msg", "You've been logged out successfully.");
+		  modelAndView.addObject("msg", "You've been logged out successfully.");
 	  }
-	  model.setViewName("login");
+	  modelAndView.setViewName("login");
 
-	  return model;
+	  return modelAndView;
 
-	}
+	}*/
 	
 	//for 403 access denied page
 	@RequestMapping(value = "/403.do", method = RequestMethod.GET)

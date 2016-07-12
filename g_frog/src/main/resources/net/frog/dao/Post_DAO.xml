@@ -29,23 +29,45 @@
 		select count(*) from test_board
 	</select>
 	
-	<insert id="insert" parameterType="PostVO">
+	<select id="finalRow" resultType="int">
+		select board_no from test_board order by board_no desc limit 1
+	</select>
+	
+	<insert id="insert" parameterType="PostVO" useGeneratedKeys="true" keyProperty="index">
 		insert into test_board(title,contents,user_id,register_date,modify_date,visible)
 		values (#{title},#{contents},#{userid},now(),now(),1)
+
+     
 	</insert>
-	
-	<insert id="update" parameterType="PostVO">
-		update test_board 
-		set title=#{title},
-		contents=#{contents},
-		modify_date=now()
-		where board_no=#{index}
-	</insert>
+
+
   
   	<delete id="delete">
   		delete from test_board where board_no=#{index}
   	</delete>
   	
-  	
+  	<insert id="update" parameterType="PostVO">
+  	 update test_board set title=#{title}, contents=#{contents}, modify_date=now() where board_no=#{index} 
+  	 </insert>
   		
+  	<insert id="insertFile" parameterType="hashmap">
+        INSERT INTO TB_FILE
+        (  
+            BOARD_IDX,
+            ORIGINAL_FILE_NAME,
+            STORED_FILE_NAME,
+            FILE_SIZE,
+            CREA_ID,
+            CREA_DTM
+        )
+        VALUES
+        (
+            #{BOARD_IDX},
+            #{ORIGINAL_FILE_NAME},
+            #{STORED_FILE_NAME},
+            #{FILE_SIZE},
+            'Admin',
+            now()
+        )
+</insert>	
 </mapper>

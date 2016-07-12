@@ -4,14 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>edit</title>
+<title>add</title>
 </head>
 <body>
+				
+
 	<form action="" method="post" >
-		<input type="hidden" class="form-control" name="board_no" value=${title }>
-		<input type="text" class="form-control" name="title" maxlength="10" required="required" value=${title } autocomplete="off"><br>
-		 <textarea rows="5" cols="20"  class="form-control" name="contents" required="required"  autocomplete="off" ></textarea>
-		
+		<input type="text" class="form-control" name="diner_name" maxlength="10" required="required" placeholder="Write dinners name" autocomplete="off">
+		<input type="text" class="form-control" name="diner_call" maxlength="10" required="required" placeholder="Write call " autocomplete="off">
+
+		<input type="text" class="form-control" name="intro" maxlength="15" required="required" placeholder="Write intro" autocomplete="off">
 		<input type="hidden"    name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		
 		<button type="submit" class="btn btn-primary" value="submit">Submit</button>

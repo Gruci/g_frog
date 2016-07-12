@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="net.frog.dao.diners.DinersDao">
+	<resultMap type="DinersVO" id="contentResultMap">
+    	<id column="no" property="no"/>
+		<result column="diner_name" property="diner_name"/>
+		<result column="diner_call" property="diner_call"/>
+		<result column="intro" property="intro"/>
+		<result column="posting_date" property="posting_date" javaType="java.sql.Date"/>
+	</resultMap>
+ 
+<!-- 	protected String diner_name;
+	protected String diner_call;
+	protected String intro;
+	protected Date posting_date;
+
+ -->
+ <select id="count" resultType="int">
+		select count(*) from diners
+	</select>
+	
+</mapper>

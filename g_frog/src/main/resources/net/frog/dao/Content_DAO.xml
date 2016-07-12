@@ -25,7 +25,7 @@
 	</insert>	
   		
   		<select id="selectOne"  resultType="ContentVO"  parameterType="int" resultMap="contentResultMap">
-		select * from test_comment where comment_no=#{value}
+		select * from test_comment where comment_no=#{comment_no}
 	</select>
 	  
   	<delete id="delete" parameterType="int">

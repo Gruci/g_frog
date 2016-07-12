@@ -2,6 +2,8 @@ package net.frog.services;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import net.frog.vo.PostVO;
 
 public interface PostService {
@@ -11,11 +13,11 @@ public interface PostService {
 	
 	public int count() throws Exception;
 	
-	public int insert(PostVO postVO) throws Exception;
+	public void insert(PostVO postVO, MultipartFile file) throws Exception;
 	
 	public int delete(PostVO postVO)throws Exception;
-	
-	public int update(PostVO postVO)throws Exception;
 
+	public int update(PostVO postVO)throws Exception;
+	
 	public PostVO selectOne(int parseInt);
 }

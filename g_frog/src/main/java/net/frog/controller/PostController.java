@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.frog.services.PostService;
@@ -22,55 +23,48 @@ import net.frog.vo.PostVO;
 
 @Controller
 public class PostController {
+	
 	@Resource(name = "postService")
 	private PostService postService;
 	
+	/*
+	 * view post list
+	 * 
+	 */
 	@RequestMapping(value = "/board.do", method = RequestMethod.GET)
 	public ModelAndView showBoards() {
-		ModelAndView model = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView();
 		List<PostVO> posts = null;
 		try {
-			posts = postService.selectList(0, 10);
+			posts = postService.selectList(0, 100);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addObject("posts", posts);
+		modelAndView.addObject("posts", posts);
 		
-		model.setViewName("board");
-		return model;
+		modelAndView.setViewName("board");
+		return modelAndView;
 	}
-	@RequestMapping(value = "/postShow.do**", method = RequestMethod.GET)
-	public ModelAndView showPost(@RequestParam(value="index", required=true) int index) {
-		ModelAndView model = new ModelAndView();
-		List<PostVO> pvo = null;
-		try {
-			pvo = postService.selectPost(index);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(pvo == null) {
-			model.addObject("content", "Can't find post!");
-		}
-		else {
-			model.addObject("title",pvo.get(0).getTitle());
-			model.addObject("content", pvo.get(0).getContent());
-			model.addObject("board_no",pvo.get(0).getIndex());
-		}
-		model.setViewName("showpost");
 	
-		return model;
-	}
-		
-	
+	/*
+	 * add_board before input
+	 */
 	@RequestMapping("/add_board.do")
 	public String boardadd()throws Exception{
 		return "/boardadd";
 	}
 	
-	@RequestMapping(value="/add_board.do",method=RequestMethod.POST)
+	/*
+	 * add_board input time
+	 */
+	@RequestMapping(value="/add_board.do", method = RequestMethod.POST)
 	public String boardadd(WebRequest request,
 			@RequestParam(value="title",required=true)String title,
-			@RequestParam(value="contents",required=true)String contents)throws Exception{
+			@RequestParam(value="contents",required=true)String contents,
+			@RequestParam(value="file",required=false)MultipartFile file
+			)throws Exception{
+		//input String \n to <br>
+		contents = contents.replaceAll("\n","<br>");
 		PostVO postVO = new PostVO();
 		 User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	      String userid = user.getUsername();
@@ -78,7 +72,7 @@ public class PostController {
 		postVO.setTitle(title);
 		postVO.setContents(contents);
 		
-		postService.insert(postVO);
+		postService.insert(postVO,file);
 		
 		return "redirect:/board.do";
 	}
@@ -88,48 +82,51 @@ public class PostController {
 	@RequestMapping(value="/delete.do", method = RequestMethod.GET)
 	public String adsf(WebRequest request,
 			@RequestParam(value="board_no",required=true)int board_no,
-			Principal prin
+			Principal principal
 			)throws Exception{
+		
 		String id=null;
-		if(prin==null){
-			return "redirect:/board.do";
-		}else{
-			PostVO postvo = new PostVO();
-			postvo = postService.selectOne(board_no);
-			id = prin.getName();
-			if(postvo.getUserid().equals(id)){
-				postService.delete(postvo);
-				return "test";
-			}
-			
+		if(principal==null){
+			//if not login
 			return "redirect:/board.do";
 		}
-	//select  후 같으면 삭제 아니면 그냥 복귀
-		//String id=null;
-		//비교를 하지 않는다면 null exception 오류 발생
-		
-//		 String id = principal.getName();
-		  
-		 //User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	      //String id = user.getUsername();
-	/*	PostVO postvo = new PostVO();
-		postvo = postService.selectOne(board_no);
-		if(postvo.getUserid()==id){
-			return "/login";
-		}*/
-		
-	}
+		//else
+		PostVO postVO = new PostVO();
+		//select this board_no board list
+		postVO = postService.selectOne(board_no);
+		//This user id
+		id = principal.getName();
+		//if same board user and this user delete this 
+		if(postVO.getUserid().equals(id)){
+			postService.delete(postVO);
+			return "/board.do";
+		}
+		//else nothing
+		return "/board.do";
 	
+	}
 	@RequestMapping(value="/edit.do", method = RequestMethod.GET)
-	public ModelAndView boradEdit(@RequestParam(value="board_no", required=true) int board_no)throws Exception{
-		  ModelAndView modelAndView = new ModelAndView();
-		  PostVO postvo = new PostVO();
+	public ModelAndView boradEdit(@RequestParam(value="board_no", required=true) int board_no,
+			Principal principal
+			)throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		if(principal==null){
+			modelAndView.setViewName("redirect:/board.do");
+			return modelAndView;
+		}
 		  
-		  postvo = postService.selectOne(board_no);
-		  
-		  modelAndView.addObject("title",postvo.getTitle());
-		  modelAndView.addObject("content", postvo.getContent());
-		  modelAndView.addObject("board_no",postvo.getIndex());
+		  PostVO postVO = new PostVO();
+		  postVO = postService.selectOne(board_no);
+		  if(!postVO.getUserid().equals(principal.getName())){
+			  modelAndView.setViewName("redirect:/board.do");
+				return modelAndView;
+		  }
+		  /*
+		   * 전에 쓴 내용
+		   */
+		  modelAndView.addObject("title",postVO.getTitle());
+		  modelAndView.addObject("content", postVO.getContent());
+		  modelAndView.addObject("board_no",postVO.getIndex());
 		  
 		  modelAndView.setViewName("boardEdit");
 		  return modelAndView;
@@ -141,24 +138,26 @@ public class PostController {
 			@RequestParam(value="board_no",required=true)int board_no,
 			@RequestParam(value="title",required=true)String title,
 			@RequestParam(value="contents",required=true)String contents,
-			Principal prin
+			Principal principal
 			)throws Exception{
+		contents = contents.replaceAll("\n","<br>");
 		String id=null;
-		if(prin==null){
+		if(principal==null){
 			return "redirect:/board.do";
 		}else{
-			PostVO postvo = new PostVO();
-			postvo = postService.selectOne(board_no);
-			id = prin.getName();
-			if(postvo.getUserid().equals(id)){
-				postvo.setTitle(title);
-				postvo.setContents(contents);
-				postService.update(postvo);
+			PostVO postVO = new PostVO();
+			postVO = postService.selectOne(board_no);
+			id = principal.getName();
+			if(postVO.getUserid().equals(id)){
+				postVO.setTitle(title);
+				postVO.setContents(contents);
+				postService.update(postVO);
 			}
 			
 			return "redirect:/board.do";
 		}
 		
 	}
+	
 	
 }

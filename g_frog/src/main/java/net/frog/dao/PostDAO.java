@@ -1,6 +1,7 @@
 package net.frog.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import net.frog.vo.PostVO;
 import net.frog.vo.UserVO;
@@ -47,10 +48,17 @@ public class PostDAO {
 		}
 	}
 
-	public int insert(PostVO postVO) {
+	public int insert(PostVO postVO, Map<String, Object> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{
-			return sqlSession.insert("net.frog.dao.PostDao.insert", postVO);
+			sqlSession.insert("net.frog.dao.PostDao.insert", postVO);
+			/*
+			 * 지금 입력한 row에서 가져온다
+			 */
+			//int index = sqlSession.selectOne("net.frog.dao.PostDao.finalRow");
+			map.put("BOARD_IDX", postVO.getIndex());
+			
+			return sqlSession.insert("net.frog.dao.PostDao.insertFile",map);
 		}finally{
 			sqlSession.close();
 		}
@@ -58,7 +66,7 @@ public class PostDAO {
 	public int delete(PostVO postVO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{
-			return sqlSession.delete("net.frog.dao.PostDao.delete", postVO);
+			return sqlSession.insert("net.frog.dao.PostDao.delete", postVO);
 		}finally{
 			sqlSession.close();
 		}
@@ -72,6 +80,7 @@ public class PostDAO {
 			sqlSession.close();
 		}
 	}
+	
 	public int update(PostVO postVO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try{

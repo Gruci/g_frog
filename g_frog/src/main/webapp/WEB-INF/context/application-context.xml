@@ -27,7 +27,7 @@
 	<!-- sqlMapClient Bean 등록 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="typeAliasesPackage" value="net.frog.vo" />
-		<property name="mapperLocations" value="classpath*:net/frog/dao/*_DAO.xml" />
+		<property name="mapperLocations" value="classpath*:net/frog/dao/**_DAO.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
@@ -37,9 +37,9 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     
-    <!-- MultipartResolver 설정 -->
+     <!-- MultipartResolver 설정 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="100000000" />
+        <property name="maxUploadSize" value="100000000" /><!-- 10MB 제한 -->
         <property name="maxInMemorySize" value="100000000" />
     </bean>
 	
