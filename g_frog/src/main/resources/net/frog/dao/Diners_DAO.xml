@@ -24,4 +24,15 @@
 		select count(*) from diners
 	</select>
 	
+	<select id="select_diners" parameterType="int"   resultType="DinersVO">
+		select * from diners where no = #{no}
+	</select>
+	
+	<select id="select_diners_photopath" parameterType="DinersPhotoVO"  resultType="java.lang.String">
+		select stored_file_path from diners_photo_path 
+where diners_photo_no =(select no from diners_photo where diners_no=#{diners_no} and diners_photo_value=#{diners_photo_value})
+	</select>
+	<!-- 
+	dinersPhotopathVO[i]=sqlSession.selectOne("net.frog.dao.diners.DinersDao.select_diners_photopath",dinersPhotoVO[i]); -->
+	<!--return sqlSession.selectOne("net.frog.dao.diners.DinersDao.select_diners",no);  -->
 </mapper>

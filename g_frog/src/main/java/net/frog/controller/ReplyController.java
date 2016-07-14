@@ -24,72 +24,79 @@ public class ReplyController {
 	@Resource(name = "replyService")
 	private ReplyService replyService;
 	
-	@RequestMapping(value="/list.do",method=RequestMethod.GET)
-	public ModelAndView showreple(@RequestParam(value="board_no",required=true)int board_no){
-		ModelAndView modelAndView = new ModelAndView();
-		List<ReplyVO> replyVO = null;
-		try{
-			replyVO = replyService.selectList(board_no);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		if(replyVO==null){
+	@RequestMapping(value="/replyList.do",method=RequestMethod.GET)
+	public ModelAndView showreple(@RequestParam(value="diners_no",required=true)int diners_no) throws Exception{
 		
-		}
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<ReplyVO> replyVO = replyService.selectList(diners_no);
+		
+		float grade = replyService.getGrade(diners_no);
 		
 		modelAndView.addObject("lists", replyVO);
-		modelAndView.setViewName("/list");
+		modelAndView.addObject("grade", grade);
+		modelAndView.setViewName("/reply/replyList");
 		return modelAndView;
 	}
 	
-	@RequestMapping("/add.do")
+	@RequestMapping("/replyAdd.do")
 	public String repleadd()throws Exception{
-		return "/add";
+		return "/reply/replyAdd";
 	}
 	
-	@RequestMapping(value="/add.do",method=RequestMethod.POST)
+	@RequestMapping(value="/replyAdd.do",method=RequestMethod.POST)
 	public String repleadd(WebRequest request,
+			@RequestParam(value="s_diners_no",required=true)String s_diners_no,
 			@RequestParam(value="content",required=true)String content,
-			@RequestParam(value="diner_no",required=true)int diner_no)throws Exception{
+			@RequestParam(value="s_grade",required=true)String s_grade,
+			Principal prin)throws Exception{
+		
 		ReplyVO replyVO = new ReplyVO();
+		
+		int diners_no = Integer.parseInt(s_diners_no);
+		int grade = Integer.parseInt(s_grade);
+		
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    String user_show_name = user.getUsername();
+
 	    replyVO.setUser_show_name(user_show_name);
+	    replyVO.setDiners_no(diners_no);
 	    replyVO.setContent(content);
-	    replyVO.setDiner_no(diner_no);
+	    replyVO.setGrade(grade);
 	    replyService.insert(replyVO);
 		
-		return "redirect:/board.do";
+		return "redirect:/diners/dinersList.do";
 	}
 	
-	@RequestMapping(value="/delete.do",method = RequestMethod.GET)
+	@RequestMapping(value="/replyDelete.do",method = RequestMethod.GET)
 	public String repledelete(WebRequest request,
 			@RequestParam(value="no",required=true)int no,
 			Principal prin)throws Exception{
-		String id=null;
+		
+		String User_show_name=null;
+		
 		if(prin==null){
-			return "redirect:/board.do";
+			return "redirect:/diners/dinersList.do";
 		}else{
 			ReplyVO replyVO = new ReplyVO(); 
 			replyVO = replyService.selectOne(no);
-			id = prin.getName();
+			User_show_name = prin.getName();
 			
-			if(replyVO.getUser_show_name().equals(id)){
+			if(replyVO.getUser_show_name().equals(User_show_name)){
 				replyService.delete(replyVO);
-				return "redirect:/board.do";
+				return "redirect:/diners/dinersList.do";
 			}
 			
-			return "redirect:/board.do";
+			return "redirect:/diners/dinersList.do";
 		}
 	
 	}
 			
 			
-	@RequestMapping(value="/edit.do",method = RequestMethod.GET)
-	public ModelAndView repleEdit(
+	@RequestMapping(value="/replyEdit.do",method = RequestMethod.GET)
+	public ModelAndView replyEdit(
 			@RequestParam(value="no", required=true) int no,
-			Principal prin
-			)throws Exception{
+			Principal prin)throws Exception{
 		ModelAndView modelAndView = new ModelAndView();
 		if(prin==null){
 			modelAndView.setViewName("redirect:/board.do");
@@ -107,12 +114,12 @@ public class ReplyController {
 		  modelAndView.addObject("content", replyVO.getContent());
 		  modelAndView.addObject("no",replyVO.getNo());
 		  
-		  modelAndView.setViewName("repleEdit");
+		  modelAndView.setViewName("/reply/replyEdit");
 		  return modelAndView;
 	}
 	
-	@RequestMapping(value="/edit.do", method = RequestMethod.POST)
-	public String repleEdit(WebRequest request,
+	@RequestMapping(value="/replyEdit.do", method = RequestMethod.POST)
+	public String replyEdit(WebRequest request,
 			@RequestParam(value="content",required=true)String content,
 			@RequestParam(value="no",required=true)int no,
 			Principal prin

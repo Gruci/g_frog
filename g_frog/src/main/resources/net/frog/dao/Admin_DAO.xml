@@ -9,16 +9,59 @@
 		<result column="diner_name" property="diner_name"/>
 		<result column="diner_call" property="diner_call"/>
 		<result column="intro" property="intro"/>
+		<result column="rest_day" property="rest_day"/>
+		<result column="diner_directory_name" property="diner_directory_name"/>
 		<result column="posting_date" property="posting_date" javaType="java.sql.Date"/>
 	</resultMap>
  
 	
 	<insert id="insert" parameterType="DinersVO">
-		insert into diners (diner_name,diner_call,intro,posting_date)
-		values(#{diner_name},#{diner_call},#{intro},now())	
+		insert into diners (diner_name,diner_call,intro,rest_day,diner_directory_name,posting_date)
+		values(#{diner_name},#{diner_call},#{intro},#{rest_day},#{diner_directory_name},now())	
 
 	</insert>
+ 	<!--protected int no;
+	/*
+	 * diner_name;
+	 * diner_call
+	 * 
+	 */
+	protected String diner_name;
+	protected String diner_call;
+	protected String intro;
+	protected String rest_day;
+	protected Date posting_date;
+	protected String diner_directory_name;  -->
+ 	<insert id="insert_dinersVO" parameterType="DinersVO">
+ 		insert into diners (diner_name,diner_call,intro,rest_day,diner_directory_name,posting_date)
+		values(#{diner_name},#{diner_call},#{intro},#{rest_day},#{diner_directory_name},now())	
+
+ 	</insert> 
   
+  <!-- no, diners_no, diners_photo_value, original_file_name, stored_file_name -->
+  	<insert id="insert_dinersPhotoVO" parameterType="DinersPhotoVO">
+  		insert into diners_photo (diners_no,diners_photo_value,original_file_name,stored_file_name)
+  		values(#{diners_no},#{diners_photo_value},#{original_file_name},#{stored_file_name})
+  	</insert>
+  	<!-- no, diners_photo_no, stored_file_path -->
+  	<insert id="insert_dinersPhotopathVO" parameterType="DinersPhotopathVO">
+  		insert into diners_photo_path (diners_photo_no,stored_file_path)
+  		values(#{diners_photo_no},#{stored_file_path})
+  	</insert>
   	
+  	<select resultType="int" id="now_dinersVO">
+  		select no from diners order by no desc limit 1
+  	</select>
+  	
+  	<select resultType="int" id="now_dinersPhotoVO">
+  		select no from diners_photo order by no desc limit 1
+  	</select>
+  	<!--
+  	net.frog.dao.admin.AdminDao.insert_dinersVO
+  	net.frog.dao.admin.AdminDao.now_dinersVO
+  	net.frog.dao.admin.AdminDao.insert_dinersPhotoVO
+  	net.frog.dao.admin.AdminDao.now_dinersPhotoVO
+  	net.frog.dao.admin.AdminDao.insert_dinersPhotopathVOs
+  	  -->
   		
 </mapper>

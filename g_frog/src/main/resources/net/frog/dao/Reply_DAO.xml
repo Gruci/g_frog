@@ -7,7 +7,7 @@
 <mapper namespace="net.frog.dao.ReplyDao">
 	<resultMap type="ReplyVO" id="replyResultMap">
     	<id column="no" property="no"/>
-		<result column="diner_no" property="diner_no"/>
+		<result column="diners_no" property="diners_no"/>
 		<result column="user_show_name" property="user_show_name"/>
 		<result column="content" property="content"/>
 		<result column="posting_date" property="posting_date" javaType="java.sql.Date"/>
@@ -15,21 +15,21 @@
 	</resultMap>
  
  	<select id="selectList" parameterType="int"  resultType="ReplyVO"  resultMap="replyResultMap">
-		select * from reply where diner_no = #{diner_no}
+		select * from reply where diners_no = #{diners_no}
 	</select>
 	
-	<select id="selectOne" parameterType="String"  resultType="ReplyVO"  resultMap="replyResultMap">
+	<select id="selectOne" parameterType="int"  resultType="ReplyVO"  resultMap="replyResultMap">
 		select * from reply where no = #{no}
 	</select>
 
   		
   	<insert id="insert" parameterType="ReplyVO">
-		insert into reply(diner_no,user_show_name,content,content,grade)
-		values (#{diner_no},#{user_show_name},#{content},now(),#{grade})
+		insert into reply(diners_no,user_show_name,content,posting_date,grade)
+		values (#{diners_no},#{user_show_name},#{content},now(),#{grade})
 	</insert>	
   		
-  	<select id="getGrade" parameterType="int" resultType="ReplyVO" resultMap="replyResultMap">
-		select * from reply where diner_no=#{diner_no}
+  	<select id="getGrade" resultType="float">
+		select AVG(grade) from reply where diners_no=#{diners_no}
 	</select>
 	  
   	<delete id="delete" parameterType="int">

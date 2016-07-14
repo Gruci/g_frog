@@ -30,7 +30,8 @@
 		<form-login login-page="/login.do"
 			default-target-url="/hello.do"
 			authentication-failure-url="/login.do?error"
-			username-parameter="username" password-parameter="password"
+			username-parameter="username" 
+			password-parameter="password"
 			always-use-default-target="true" />
 		<logout logout-success-url="/login.do?logout"  />
 		<!-- enable csrf protection -->

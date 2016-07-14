@@ -5,19 +5,19 @@ import java.util.Date;
 public class ReplyVO {
 	
 	protected int no;
-	protected int diner_no;
+	protected int diners_no;
 	protected String user_show_name;
 	protected String content;
 	protected Date posting_date;
-	protected int grade;
+	protected float grade;
 	
 	public ReplyVO(){
 	
 	}
 	
-	public ReplyVO(int no, int diner_no, String user_show_name, String content, Date posting_date, int grade){
+	public ReplyVO(int no, int diners_no, String user_show_name, String content, Date posting_date, int grade){
 		this.no = no;
-		this.diner_no = diner_no;
+		this.diners_no = diners_no;
 		this.user_show_name = user_show_name;
 		this.content = content;
 		this.posting_date = posting_date;
@@ -30,11 +30,11 @@ public class ReplyVO {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getDiner_no() {
-		return diner_no;
+	public int getDiners_no() {
+		return diners_no;
 	}
-	public void setDiner_no(int diner_no) {
-		this.diner_no = diner_no;
+	public void setDiners_no(int diners_no) {
+		this.diners_no = diners_no;
 	}
 	public String getUser_show_name() {
 		return user_show_name;
@@ -54,7 +54,7 @@ public class ReplyVO {
 	public void setPosting_date(Date posting_date) {
 		this.posting_date = posting_date;
 	}
-	public int getGrade() {
+	public float getGrade() {
 		return grade;
 	}
 	public void setGrade(int grade) {

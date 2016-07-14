@@ -16,8 +16,8 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyDAO replyDAO;
 
 	@Override
-	public List<ReplyVO> selectList(int diner_no)throws Exception{
-		return replyDAO.selectList(diner_no);
+	public List<ReplyVO> selectList(int diners_no)throws Exception{
+		return replyDAO.selectList(diners_no);
 	}
 	
 	@Override
@@ -30,12 +30,11 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyDAO.insert(replyVO);
 	}
 	
-	/*
+	
 	@Override
-	public List<ReplyVO> getGrade(int diner_no)throws Exception{
-		return replyDAO.getGrade(diner_no);
+	public float getGrade(int diners_no)throws Exception{
+		return replyDAO.getGrade(diners_no);
 	}
-	*/
 
 	@Override
 	public int delete(ReplyVO replyVO)throws Exception{

@@ -1,3 +1,3 @@
 <script type="text/javascript">
-location.href="user/userList.do";
+location.href="login.do";
 </script> 

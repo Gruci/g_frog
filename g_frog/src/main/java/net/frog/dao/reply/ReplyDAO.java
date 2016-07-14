@@ -19,11 +19,11 @@ public class ReplyDAO {
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
 	
-	public List<ReplyVO> selectList(int diner_no) {
+	public List<ReplyVO> selectList(int diners_no) {
 		// TODO Auto-generated method stub
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try{
-			return sqlSession.selectList("net.frog.dao.ReplyDao.selectList",diner_no);
+			return sqlSession.selectList("net.frog.dao.ReplyDao.selectList",diners_no);
 		}finally{
 			sqlSession.close();
 		}
@@ -40,16 +40,16 @@ public class ReplyDAO {
 		}
 	}
 	
-	/*
-	public List<ReplyVO> getGrade(int diner_no) {
+	
+	public float getGrade(int diner_no) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try{
-			return sqlSession.selectList("net.frog.dao.ReplyDao.getGrade",diner_no);
+			return sqlSession.selectOne("net.frog.dao.ReplyDao.getGrade",diner_no);
 		}finally{
 			sqlSession.close();
 		}
 	}
-	*/
+	
 
 	public int insert(ReplyVO replyVO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
