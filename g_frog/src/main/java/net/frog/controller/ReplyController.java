@@ -25,7 +25,7 @@ public class ReplyController {
 	private ReplyService replyService;
 	
 	@RequestMapping(value="/replyList.do",method=RequestMethod.GET)
-	public ModelAndView showreple(@RequestParam(value="diners_no",required=true)int diners_no) throws Exception{
+	public ModelAndView replyList (@RequestParam(value="diners_no",required=true)int diners_no) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
