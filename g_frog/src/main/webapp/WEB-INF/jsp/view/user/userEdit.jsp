@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>delete user</title>
+<title>add</title>
 </head>
 <body>
 	<form action="" method="post" >
-		<input type="text" class="form-control" name="userEmail" maxlength="10" required="required" placeholder="Write Email " autocomplete="off">
-		<input type="text" class="form-control" name="password" maxlength="15" required="required" placeholder="Write Password" autocomplete="off">
+		<input type="hidden"    name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+		<input type="text" class="form-control" name="password" maxlength="15" required="required" placeholder="Write Password" autocomplete="off"><br>	
 		<button type="submit" class="btn btn-primary" value="submit">Submit</button>
 	</form>
 </body>

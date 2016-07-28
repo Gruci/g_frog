@@ -8,33 +8,11 @@ public class UsersVO {
 	protected String show_name;
 	protected String email;
 	protected String password;
-	protected boolean sex;
+	protected Boolean sex;
 	protected Date birth_date;
 	protected Date created_date;
 	protected Date last_date;
 	protected String image_path;
-	
-	/*
-	 * CREATE TABLE users (
-  		no int not null auto_increment comment '회원 번호',
-  		real_name varchar(200) not null comment '회원 이름',
-  		show_name varchar(45) not null comment '회원 닉네임',
-  		email varchar(255) not null comment '회원 이메일',
-  		password varchar(50) not null comment '비밀번호',
-  		sex bool not null comment '성별',
-  		birth_date date not null comment '생일',
-  		created_date datetime not null comment '회원가입 날짜',
-  		last_date datetime not null comment '마지막 수정날짜',
-  		image_path varchar(50) default 'default.jpg' comment '회원 사진',
-  		PRIMARY KEY (no),
-  		UNIQUE INDEX (user_email)
-)
-	 * 
-	 * 
-	 */
-	
-	
-	
 	
 	public int getNo() {
 		return no;
@@ -96,13 +74,5 @@ public class UsersVO {
 	public void setImage_path(String image_path) {
 		this.image_path = image_path;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

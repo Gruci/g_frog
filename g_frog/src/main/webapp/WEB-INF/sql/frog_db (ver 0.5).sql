@@ -5,7 +5,7 @@ CREATE TABLE users (
   real_name varchar(45) not null comment '회원 이름',
   show_name varchar(45) not null comment '회원 닉네임',
   email varchar(255) not null comment '회원 이메일',
-  password varchar(50) not null comment '비밀번호users',
+  password varchar(50) not null comment '비밀번호',
   sex bool not null comment '성별',
   birth_date date not null comment '생일',
   created_date datetime not null comment '회원가입 날짜',

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.frog.dao.UsersDao">
+	<resultMap type="UsersVO" id="userResultMap">
+    	<id column="no" property="no"/>
+	    <result column="real_name" property="real_name"/>
+	    <result column="show_name" property="show_name"/>
+	    <result column="email" property="email"/>
+	   	<result column="password" property="password"/>
+	    <result column="sex" property="sex"/>
+	    <result column="birth_date" property="birth_date" javaType="java.sql.Date"/>
+	    <result column="created_date" property="created_date" javaType="java.sql.Date"/>
+	    <result column="last_date" property="last_date"/>
+	    <result column="image_path" property="imagePath"/>
+	</resultMap>
+ 
+ 	<select id="selectList" resultMap="userResultMap">
+		select * from users limit #{offset},#{limit}
+	</select>
+	 
+	<select id="count" resultType="int">
+		select count(*) from users
+	</select>
+	
+	<insert id="insert" parameterType="UsersVO">
+		insert into users(real_name,show_name,email,password,sex,birth_date,created_date,last_date)
+		values (#{real_name},#{show_name},#{email},#{password},#{sex},#{birth_date},now(),now())
+	</insert>
+  
+	<update id="update" parameterType="UsersVO">
+  		update users set password=#{password},last_date=now() 
+  		where email=#{email}
+  	</update>
+  	
+  	<select id="selectOne" parameterType="String" resultMap="userResultMap">
+		select * from users where email = #{email}
+	</select>
+  
+  	<delete id="delete">
+  		delete from users where email=#{email}
+  	</delete>
+</mapper>
