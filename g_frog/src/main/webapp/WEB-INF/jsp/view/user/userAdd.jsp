@@ -8,7 +8,6 @@
 </head>
 <body>
 	<form action="" method="post" >
-		<input type="hidden"    name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		<input type="text" class="form-control" name="real_name" maxlength="10" required="required" placeholder="Write your name" autocomplete="off"><br>
 		<input type="text" class="form-control" name="show_name" maxlength="10" required="required" placeholder="Write your nickname" autocomplete="off"><br>
 		<input type="text" class="form-control" name="email" maxlength="10" required="required" placeholder="Write Email " autocomplete="off"><br>
@@ -17,7 +16,8 @@
             <OPTION VALUE='Male'>Male</OPTION>
             <OPTION VALUE='Female'>Female</OPTION>
         </select><br>
-  		<input type="text" class="form-control" name="birth_date" maxlength="10" required="required" placeholder="dd/MM/yyyy" autocomplete="off"><br>	
+  		<input type="text" class="form-control" name="birth_date" maxlength="10" required="required" placeholder="yyyy/MM/dd" autocomplete="off"><br>
+  			
 		<button type="submit" class="btn btn-primary" value="submit">Submit</button>
 	</form>
 </body>

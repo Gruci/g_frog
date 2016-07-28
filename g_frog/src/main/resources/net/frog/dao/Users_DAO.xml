@@ -14,7 +14,7 @@
 	    <result column="birth_date" property="birth_date" javaType="java.sql.Date"/>
 	    <result column="created_date" property="created_date" javaType="java.sql.Date"/>
 	    <result column="last_date" property="last_date"/>
-	    <result column="image_path" property="imagePath"/>
+	    <result column="image_path" property="image_path"/>
 	</resultMap>
  
  	<select id="selectList" resultMap="userResultMap">
@@ -26,8 +26,8 @@
 	</select>
 	
 	<insert id="insert" parameterType="UsersVO">
-		insert into users(real_name,show_name,email,password,sex,birth_date,created_date,last_date)
-		values (#{real_name},#{show_name},#{email},#{password},#{sex},#{birth_date},now(),now())
+		insert into users(real_name,show_name,email,password,sex,birth_date,created_date,last_date,image_path)
+		values (#{real_name},#{show_name},#{email},#{password},#{sex},#{birth_date},now(),now(),default)
 	</insert>
   
 	<update id="update" parameterType="UsersVO">

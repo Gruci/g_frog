@@ -17,18 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Controller
 @RequestMapping(value = "/user")
 public class UsersController {
 	
-	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 	
-	@Resource(name = "userService")
+	@Resource(name = "usersService")
 	private UsersService usersService;
 	
-	@RequestMapping(value="/userList.do")
+	@RequestMapping(value="/userList.do",method=RequestMethod.GET)
 	public ModelAndView userList(HttpServletRequest request) throws Exception{
 		ModelAndView modelandview = new ModelAndView();
 		
@@ -55,7 +54,7 @@ public class UsersController {
 		return "/user/userAdd";
 	}
 	
-	@RequestMapping(value="/user/userAdd.do", method=RequestMethod.POST)
+	@RequestMapping(value="/userAdd.do", method=RequestMethod.POST)
 	public String userAdd(WebRequest request,
 			@RequestParam(value="real_name",required=true)String real_name,
 			@RequestParam(value="show_name",required=true)String show_name,
@@ -70,19 +69,15 @@ public class UsersController {
 		usersVO.setShow_name(show_name);
 		usersVO.setEmail(email);
 		usersVO.setPassword(password);
+		
 		if(s_sex=="Male"){
 			usersVO.setSex(true);
 		}else{
 			usersVO.setSex(false);
 		}
 		
-		try {
-
-			Date date = formatter.parse(birth_date);
-			usersVO.setBirth_date(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		Date date = formatter.parse(birth_date);
+		usersVO.setBirth_date(date);
 		
 		usersService.insert(usersVO);	
 		
@@ -91,10 +86,10 @@ public class UsersController {
 	
 	@RequestMapping("/userEdit.do")
 	public String userEdit() throws Exception{
-		return "/userEdit";
+		return "/user/userEdit";
 	}
 	
-	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.POST)
+	@RequestMapping(value="/userEdit.do", method=RequestMethod.POST)
 	public String userEdit(WebRequest request,
 			@RequestParam(value="password",required=true)String password
 			) throws Exception{
@@ -106,21 +101,30 @@ public class UsersController {
 		return "redirect:/user/userList.do";
 	}
 	
-	@RequestMapping(value="/userDelete.do", method=RequestMethod.POST)
+	@RequestMapping("/userDelete.do")
+	public String userDelete() throws Exception{
+		return "/user/userDelete";
+	}
+	
+	@RequestMapping(value="/userDelete.do", method=RequestMethod.GET)
 	public String userDelete(WebRequest request,
 			@RequestParam(value="email",required=true)String email,
 			@RequestParam(value="password",required=true)String password
 			) throws Exception{
 		
 		UsersVO usersVO = new UsersVO();
-		usersService.selectOne(email);
+		usersVO.setEmail(email);
 		
+		usersService.selectOne(email);	
 		String chcek_pass = usersVO.getPassword();
+		
 		if(password == chcek_pass){
 			usersService.delete(usersVO);
+			return "redirect:/user/userList.do";
 		}
-		
-		return "redirect:/user/userList.do";
+		else{
+			return "redirect:/user/userList.do";
+		}
 	}
 	
 	

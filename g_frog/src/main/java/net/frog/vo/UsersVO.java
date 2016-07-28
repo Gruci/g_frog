@@ -14,6 +14,21 @@ public class UsersVO {
 	protected Date last_date;
 	protected String image_path;
 	
+	public UsersVO(){
+		
+	}
+	
+	public UsersVO(String real_name,String show_name, String email,String password,Boolean sex,Date birth_date,Date created_date,Date last_date,String image_path){
+		this.real_name = real_name;
+		this.show_name = show_name;
+		this.email = email;
+		this.sex = sex;
+		this.birth_date = birth_date;
+		this.created_date = created_date;
+		this.last_date = last_date;
+		this.image_path = image_path;
+	}
+	
 	public int getNo() {
 		return no;
 	}
